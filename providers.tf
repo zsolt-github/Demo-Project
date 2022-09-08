@@ -2,12 +2,24 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "3.19.1"
+      version = "3.20.0"
     }
+
+    helm = {
+      source = "hashicorp/helm"
+      version = "2.6.0"
+    }
+
   }
 }
 
 provider "azurerm" {
+  features {
+    }
+}
+
+
+provider "helm" {
   # Configuration options
 }
 

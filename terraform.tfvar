@@ -1,6 +1,0 @@
-resource_group_name   = "RG_K8s_TF"
-location              = "UKWest"
-cluster_name          = "K8s_P2"
-kubernetes_version    = "1.22"
-kubernetes_node_count = 2
-acr_name              = "myacr3210"
