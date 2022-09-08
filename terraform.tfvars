@@ -1,0 +1,10 @@
+resource_group_name  = "RG-K8s-TF"
+virtual_network_name = "VNET-K8s-TF"
+virtual_network_address_space = "10.30.0.0/16"
+subnet_name = "SN-K8s-TF"
+subnet_address_prefix = "10.30.1.0/24"
+location = "UKWest"
+cluster_name = "K8s-P2"
+kubernetes_version = "1.22"
+kubernetes_node_count = 1
+acr_name = "myacr3210"
