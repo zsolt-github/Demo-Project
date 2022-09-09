@@ -4,59 +4,47 @@ resource "azurerm_resource_group" "aks-rg" {
 
   tags = {
     "ResourceType" = "Resrouce Group"
-    "environment"  = "test"
+    "Evironment"   = "test"
   }
 }
 
-resource "azurerm_virtual_network" "example" {
+resource "azurerm_virtual_network" "aks-vnet" {
   name                = var.virtual_network_name
   resource_group_name = var.resource_group_name
   location            = var.location
   address_space       = [var.virtual_network_address_space]
+  depends_on          = [azurerm_resource_group.aks-rg]
+
+  tags = {
+    "ResourceType" = "Virtual Network"
+    "Environment"  = "test"
+  }  
 }
 
-resource "azurerm_subnet" "example" {
+resource "azurerm_subnet" "aks-subnet" {
   name                 = var.subnet_name
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
   address_prefixes     = [var.subnet_address_prefix]
-}
-
-resource "azurerm_role_assignment" "role_acrpull" {
-  scope                            = azurerm_container_registry.acr.id
-  role_definition_name             = "AcrPull"
-  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
-  skip_service_principal_aad_check = true
-}
-
-resource "azurerm_container_registry" "acr" {
-  name                = var.acr_name
-  resource_group_name = azurerm_resource_group.aks-rg.name
-  location            = var.location
-  sku                 = "Standard"
-  admin_enabled       = false
-
-  tags = {
-    "ResourceType" = "Azure Container Registry"
-    "environment"  = "test"
-  }
+  depends_on           = [azurerm_virtual_network.aks-vnet]
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.cluster_name
-  kubernetes_version  = var.kubernetes_version 
+  name                = var.k8s_cluster_name
   location            = var.location
-  resource_group_name = azurerm_resource_group.aks-rg.name
-  dns_prefix          = var.cluster_name
+  resource_group_name = var.resource_group_name
+  kubernetes_version  = var.k8s_version
+  dns_prefix          = var.k8s_cluster_name
 
   default_node_pool {
-    name                = "system"
-    node_count          = var.kubernetes_node_count
-    vm_size             = "Standard_DS2_v2"
-    type                = "VirtualMachineScaleSets"
-    zones               = [1, 2, 3]
+    name                = var.k8s_default_node_name
+    node_count          = var.k8s_default_node_count
+    vm_size             = var.k8s_default_node_vm_size
+    type                = var.k8s_default_node_node_type
+#    zones               = [1, 2, 3]
+    vnet_subnet_id      = azurerm_subnet.aks-subnet.id
+  
     enable_auto_scaling = false
-    vnet_subnet_id      = var.subnet_name
   }
 
   network_profile {
@@ -70,6 +58,52 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags = {
       "ResourceType" = "Kubernetes"
-      "environment" = "test"
+      "Environment"  = "test"
   }
 }
+
+resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
+  name                  = var.k8s_worker_pool_1_name
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks
+  vm_size               = var.k8s_worker_pool_1_vm_size
+  type                  = var.k8s_worker_pool_1_node_type
+  vnet_subnet_id        = azurerm_subnet.aks-subnet.id
+  
+  enable_auto_scaling   = true
+  max_count             = var.k8s_worker_pool_1_auto_scaling_max_count
+  min_count             = var.k8s_worker_pool_1_auto_scaling_min_count
+  node_count            = var.k8s_worker_pool_1_count
+  
+  tags = {
+      "ResourceType" = "Kubernetes"
+      "Environment"  = "test"
+  }
+}
+
+/*
+resource "local_file" "kubeconfig" {
+  depends_on   = [azurerm_kubernetes_cluster.aks]
+  filename     = "kubeconfig"
+  content      = azurerm_kubernetes_cluster.aks.kube_config_raw
+}
+
+resource "azurerm_role_assignment" "role_acrpull" {
+  scope                            = azurerm_container_registry.acr.id
+  role_definition_name             = "AcrPull"
+  principal_id                     = azurerm_kubernetes_cluster.aks.kubelet_identity.0.object_id
+  skip_service_principal_aad_check = true
+}
+
+resource "azurerm_container_registry" "acr" {
+  name                = var.acr_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                 = "Standard"
+  admin_enabled       = false
+
+  tags = {
+    "ResourceType" = "Container Registry"
+    "environment"  = "test"
+  }
+}
+*/
