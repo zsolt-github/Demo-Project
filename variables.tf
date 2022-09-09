@@ -53,7 +53,7 @@ variable "k8s_version" {
 # Variables for the Kubernetes Default node
 
 variable "k8s_default_node_name" {
-    type = number
+    type = string
     description = "Name of Kubernetes default node"
 }
 
@@ -76,7 +76,7 @@ variable "k8s_default_node_node_type" {
 # Variables for the Kubernetes Worker node 1
 
 variable "k8s_worker_pool_1_name" {
-    type = number
+    type = string
     description = "Name of Kubernetes worker node 1"
 }
 

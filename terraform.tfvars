@@ -12,12 +12,15 @@ subnet_address_prefix = "10.30.1.0/24"
 k8s_cluster_name = "K8s-P2-TF"
 k8s_version = "1.23.8"
 
-k8s_default_node_name = "System"
+
+# Pool name must start with a lowercase letter, have max length of 12, and only have characters a-z0-9
+k8s_default_node_name = "system"
 k8s_default_node_count = 1
 k8s_default_node_vm_size = "Standard_DS2_v2"
 k8s_default_node_node_type = "VirtualMachineScaleSets"
 
-k8s_worker_pool_1_name = "Worker Node - 1"
+# Pool name must start with a lowercase letter, have max length of 12, and only have characters a-z0-9
+k8s_worker_pool_1_name = "workerpool1"
 k8s_worker_pool_1_vm_size = "Standard_DS2_v2"
 k8s_worker_pool_1_node_type = "VirtualMachineScaleSets"
 k8s_worker_pool_1_auto_scaling_max_count = "3"

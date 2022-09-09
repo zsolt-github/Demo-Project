@@ -64,9 +64,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   name                  = var.k8s_worker_pool_1_name
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
   vm_size               = var.k8s_worker_pool_1_vm_size
-  type                  = var.k8s_worker_pool_1_node_type
+#  type                  = var.k8s_worker_pool_1_node_type
   vnet_subnet_id        = azurerm_subnet.aks-subnet.id
   
   enable_auto_scaling   = true
