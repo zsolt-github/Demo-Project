@@ -12,6 +12,39 @@ output "azure_k8s_node_rg" {
   value = azurerm_kubernetes_cluster.aks.node_resource_group
 }
 
+/*
+output "azure_resource_group_name" {
+  value = azurerm_resource_group.aks-rg.name
+}
+
+output "azure_k8s_cluster_name" {
+  value = azurerm_kubernetes_cluster.aks.name
+}
+
+output "azure_k8s_host" {
+  value = azurerm_kubernetes_cluster.aks.kube_config.0.host
+}
+
+output "azure_k8s_client_key" {
+  value = azurerm_kubernetes_cluster.aks.kube_config.0.client_key
+}
+
+output "azure_k8s_client_certificate" {
+  value = azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate
+}
+
+output "azure_k8s_kube_config" {
+  value = azurerm_kubernetes_cluster.aks.kube_config_raw
+}
+
+output "cluster_username" {
+  value = azurerm_kubernetes_cluster.default.kube_config.0.username
+}
+
+output "cluster_password" {
+  value = azurerm_kubernetes_cluster.default.kube_config.0.password
+}
+*/
 
 /*
 output "acr_id" {

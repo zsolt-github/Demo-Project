@@ -56,12 +56,24 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
+/*
+  service_principal {
+    client_id     = var.k8s_appId
+    client_secret = var.k8s_password
+  }
+
+  role_based_access_control {
+    enabled = true
+  }
+*/
+
   tags = {
       "ResourceType" = "Kubernetes"
       "Environment"  = "test"
   }
 }
 
+/*
 resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   name                  = var.k8s_worker_pool_1_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
@@ -80,13 +92,15 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   }
 }
 
-/*
-resource "local_file" "kubeconfig" {
+*/
+
+resource "local_file" "aks_kubeconfig" {
   depends_on   = [azurerm_kubernetes_cluster.aks]
-  filename     = "kubeconfig"
+  filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.aks.kube_config_raw
 }
 
+/*
 resource "azurerm_role_assignment" "role_acrpull" {
   scope                            = azurerm_container_registry.acr.id
   role_definition_name             = "AcrPull"

@@ -49,6 +49,17 @@ variable "k8s_version" {
     description = "Kubernetes version"
 }
 
+/*
+variable "k8s_appId" {
+    type = string
+    description = "Kubernetes version"
+}
+
+variable "k8s_password" {
+    type = string
+    description = "Kubernetes version"
+}
+*/
 
 # Variables for the Kubernetes Default node
 
