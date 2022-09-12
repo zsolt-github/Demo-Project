@@ -1,117 +1,117 @@
-# Variables for the Resource Group
+# Variables for the Azure Resource Group
 
-variable "resource_group_name" {
+variable "az_resource_group_name" {
     type = string
     description = "Resource Group name in Azure"
 }
 
-variable "location" {
+variable "az_location" {
     type = string
     description = "Location of the resources in Azure"
 }
 
 
-# Variables for the Virtual Network
+# Variables for the Azure Virtual Network
 
-variable "virtual_network_name" {
+variable "az_virtual_network_name" {
     type = string
     description = "Name of the VLAN in Azure"
 }
 
-variable "virtual_network_address_space" {
+variable "az_virtual_network_address_space" {
     type = string
     description = "The address space of the VLAN in Azure"
 }
 
 
-# Variables for the Subnet
+# Variables for Azure the Subnet
 
-variable "subnet_name" {
+variable "az_subnet_name" {
     type = string
     description = "Name of the Subnet in Azure"
 }
 
-variable "subnet_address_prefix" {
+variable "az_subnet_address_prefix" {
     type = string
     description = "The address space of the Subnet in Azure"
 }
 
 
-# Variables for the Kubernetes Cluster
+# Variables for the Azure Kubernetes Cluster
 
-variable "k8s_cluster_name" {
+variable "aks_cluster_name" {
     type = string
     description = "Name of the Kubernetes cluster in Azure"
 }
 
-variable "k8s_version" {
+variable "aks_version" {
     type = string
     description = "Kubernetes version"
 }
 
 /*
-variable "k8s_appId" {
+variable "aks_appId" {
     type = string
     description = "Kubernetes version"
 }
 
-variable "k8s_password" {
+variable "aks_password" {
     type = string
     description = "Kubernetes version"
 }
 */
 
-# Variables for the Kubernetes Default node
+# Variables for the Azure Kubernetes Default node
 
-variable "k8s_default_node_name" {
+variable "aks_default_node_name" {
     type = string
     description = "Name of Kubernetes default node"
 }
 
-variable "k8s_default_node_count" {
+variable "aks_default_node_count" {
     type = number
     description = "Number of Kubernetes default node"
 }
 
-variable "k8s_default_node_vm_size" {
+variable "aks_default_node_vm_size" {
     type = string
     description = "VM type of Kubernetes default node"
 }
 
-variable "k8s_default_node_node_type" {
+variable "aks_default_node_node_type" {
     type = string
     description = "Kubernetes Node Type of the default node"
 }
 
 
-# Variables for the Kubernetes Worker node 1
+# Variables for the Azure Kubernetes Worker node 1
 
-variable "k8s_worker_pool_1_name" {
+variable "aks_worker_pool_1_name" {
     type = string
     description = "Name of Kubernetes worker node 1"
 }
 
-variable "k8s_worker_pool_1_vm_size" {
+variable "aks_worker_pool_1_vm_size" {
     type = string
     description = "VM type of Kubernetes worker node 1"
 }
 
-variable "k8s_worker_pool_1_node_type" {
+variable "aks_worker_pool_1_node_type" {
     type = string
     description = "Kubernetes Node Type of the worker node 1"
 }
 
-variable "k8s_worker_pool_1_auto_scaling_max_count" {
+variable "aks_worker_pool_1_auto_scaling_max_count" {
     type = number
     description = "The maximum number of Kubernetes nodes in worker node 1"
 }
 
-variable "k8s_worker_pool_1_auto_scaling_min_count" {
+variable "aks_worker_pool_1_auto_scaling_min_count" {
     type = number
     description = "The minimum number of Kubernetes nodes in worker node 1"
 }
 
-variable "k8s_worker_pool_1_count" {
+variable "aks_worker_pool_1_count" {
     type = number
     description = "Number of Kubernetes nodes in worker node 1"
 }

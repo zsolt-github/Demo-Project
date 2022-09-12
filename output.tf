@@ -1,10 +1,10 @@
-output "azure_k8s_id" {
+output "aks_id" {
   description = "ID of the Azure Kubernetes cluster"
   value = azurerm_kubernetes_cluster.aks.id
-  # sensitive = true
+  # sensitive = false
 }
 
-output "azure_k8s_fqdn" {
+output "aks_fqdn" {
   value = azurerm_kubernetes_cluster.aks.fqdn
 }
 
@@ -17,32 +17,34 @@ output "azure_resource_group_name" {
   value = azurerm_resource_group.aks-rg.name
 }
 
-output "azure_k8s_cluster_name" {
+output "aks_cluster_name" {
   value = azurerm_kubernetes_cluster.aks.name
 }
 
-output "azure_k8s_host" {
+output "aks_host" {
   value = azurerm_kubernetes_cluster.aks.kube_config.0.host
 }
 
-output "azure_k8s_client_key" {
+output "aks_client_key" {
   value = azurerm_kubernetes_cluster.aks.kube_config.0.client_key
 }
 
-output "azure_k8s_client_certificate" {
+output "aks_client_certificate" {
   value = azurerm_kubernetes_cluster.aks.kube_config.0.client_certificate
 }
 
-output "azure_k8s_kube_config" {
+output "aks_kube_config" {
   value = azurerm_kubernetes_cluster.aks.kube_config_raw
 }
 
-output "cluster_username" {
+output "aks_cluster_username" {
   value = azurerm_kubernetes_cluster.default.kube_config.0.username
+  # sensitive = true
 }
 
-output "cluster_password" {
+output "aks_cluster_password" {
   value = azurerm_kubernetes_cluster.default.kube_config.0.password
+  # sensitive = true
 }
 */
 
