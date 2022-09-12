@@ -1,8 +1,9 @@
 data "terraform_remote_state" "aks" {
-  backend = "local"
+  depends_on  = [azurerm_kubernetes_cluster.aks]
+  backend     = "local"
 
   config = {
-    path = "./terraform.tfstate"
+    path = "terraform.tfstate"
   }
 }
 
