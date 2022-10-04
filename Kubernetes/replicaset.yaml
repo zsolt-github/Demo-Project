@@ -1,0 +1,21 @@
+apiVersion: apps/vl
+kind: ReplicaSet
+metadata:
+  name: myapp
+  namespace: development
+  labels:
+    app: myapp
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: hello-pod
+  spec:
+    containers:
+    - name: myapp-container
+      image: busybox 
+      command: ['sh', '-c', 'echo Hello World! && sleep 3600']
