@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: hello-replicaset
+  name: hello-deployment
   namespace: development
   labels:
     app.kubernetes.io/name: hello
