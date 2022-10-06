@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-frontend
+  namespace: development
+  labels:
+    app.kubernetes.io/name: web-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: web-frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: web-frontend
+    spec:
+      containers:
+      - name: web-frontend-container
+        image: testcontainers/helloworld # https://hub.docker.com/r/testcontainers/helloworld
+        ports:
+          - containerPort: 3000
