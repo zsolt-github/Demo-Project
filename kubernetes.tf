@@ -5,6 +5,7 @@ resource "kubernetes_namespace" "k8s-ns-development" {
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
+/*
 resource "kubernetes_namespace" "k8s-ns-test" {
   metadata {
     name = "test"
@@ -20,25 +21,31 @@ resource "kubernetes_namespace" "k8s-ns-production" {
 }
 
 
-/*
-resource "kubernetes_deployment" "test" {
+resource "kubernetes_deployment" "deployment-dev-1" {
   metadata {
-    name = "test"
-    namespace= kubernetes_namespace.test.metadata.0.name
+    name = "deployment-nginx"
+    namespace = kubernetes_namespace.k8s-ns-development.metadata.0.name
+    labels = {
+      deployement = "deployment-web-frontend"
+    }
   }
+ 
   spec {
     replicas = 2
+    
     selector {
       match_labels = {
-        app = "test"
+        app = "web-frontend"
       }
     }
+  
     template {
       metadata {
         labels = {
-          app  = "test"
+          app  = "web-frontend"
         }
       }
+  
       spec {
         container {
           image = "nginx:1.19.4"
@@ -46,12 +53,12 @@ resource "kubernetes_deployment" "test" {
 
           resources {
             limits = {
-              memory = "512M"
               cpu = "1"
+              memory = "512M"              
             }
             requests = {
-              memory = "256M"
               cpu = "50m"
+              memory = "256M"              
             }
           }
         }
@@ -60,15 +67,47 @@ resource "kubernetes_deployment" "test" {
   }
 }
 
-resource helm_release nginx_ingress {
-  name       = "nginx-ingress-controller"
 
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "nginx-ingress-controller"
 
-  set {
-    name  = "service.type"
-    value = "ClusterIP"
+resource "kubernetes_service" "service-web_frontend" {
+  metadata {
+    name = "service-web-frontend"
+    namespace = kubernetes_namespace.k8s-ns-development.metadata.0.name
+  }
+  
+  spec {
+    selector = {
+      app = "web-frontend"
+    }
+    session_affinity = "ClientIP"
+    
+    port {
+      port        = 8080
+      target_port = 80
+    }
+
+    type = "LoadBalancer"
   }
 }
 */
+
+resource "kubernetes_service" "service-jenkins" {
+  metadata {
+    name = "service-jenkins"
+    namespace = kubernetes_namespace.k8s-ns-development.metadata.0.name
+  }
+  
+  spec {
+    selector = {
+      app = "jenkins"
+    }
+    session_affinity = "ClientIP"
+    
+    port {
+      port        = 8080
+      target_port = 8080
+    }
+
+    type = "LoadBalancer"
+  }
+}

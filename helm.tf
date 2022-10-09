@@ -1,10 +1,10 @@
-/*
-
-resource "helm_release" "jenkins" {
+resource "helm_release" "helm-jenkins" {
   name       = "jenkins"
   repository = "https://charts.jenkins.io"
   chart      = "jenkins"
+  namespace  = kubernetes_namespace.k8s-ns-development.metadata.0.name
 
+/*
   values = [
     "${file("jenkins-values.yaml")}"
   ]
@@ -18,5 +18,5 @@ resource "helm_release" "jenkins" {
     name  = "controller.adminPassword"
     value = var.jenkins_admin_password
   }
-}
 */
+}
