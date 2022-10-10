@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.346.3-jdk11"
+  # tag: "2.361.1-jdk11"
   tagLabel: jdk11
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -46,7 +46,7 @@ controller:
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert controller.adminUser to your preferred admin user:
   adminUser: "admin"
-  adminPassword: "testpassword"
+  # adminPassword: <defaults to random>
   admin:
     existingSecret: ""
     userKey: jenkins-admin-user
@@ -126,7 +126,7 @@ controller:
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
-  serviceType: LoadBalancer
+  serviceType: ClusterIP
   # Use Local to preserve the client source IP and avoids a second hop for LoadBalancer and Nodeport type services,
   # but risks potentially imbalanced traffic spreading.
   serviceExternalTrafficPolicy:
@@ -235,13 +235,14 @@ controller:
   extraPorts: []
   # - name: BuildInfoProxy
   #   port: 9000
+  #   targetPort: 9010 (Optional: Use to explicitly set targetPort if different from port)
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:3600.v144b_cd192ca_a_
-    - workflow-aggregator:581.v0c46fa_697ffd
-    - git:4.11.3
-    - configuration-as-code:1429.v09b_044a_c93de
+    - kubernetes:3706.vdfb_d599579f3
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - git:4.11.5
+    - configuration-as-code:1512.vb_79d418d5fc8
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
@@ -317,6 +318,9 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+    configUrls: []
+    # - https://acme.org/jenkins.yaml
+    # Remote URL:s for configuration files.
     configScripts: {}
     #  welcome-message: |
     #    jenkins:
@@ -533,6 +537,15 @@ controller:
     # Set a custom namespace where to deploy PrometheusRule resource
     prometheusRuleNamespace: ""
 
+  googlePodMonitor:
+    # If enabled, It creates Google Managed Prometheus scraping config
+    enabled: false
+    # Set a custom namespace where to deploy PodMonitoring resource
+    # serviceMonitorNamespace: ""
+    scrapeInterval: 60s
+    # This is the default endpoint used by the prometheus plugin
+    scrapeEndpoint: /prometheus
+
   # Can be used to disable rendering controller test resources when using helm template
   testEnabled: true
 
@@ -585,6 +598,7 @@ controller:
         /MwpRxxazoda9r45kqQpyG+XoM4pB+Fd3JzMc4FUGxfVPxJU4jLawnJJiZ3vqiSyaB0YyUL+Er1Q
         6NnqtR4gEBF0ZVlQmkycFvD4EC2boP943dLqNUvop+4R3SM1QMM6P5u8iTXtHd/VN4MwMyy1wtog
         hYAzODo1Jt59pcqqKJEas0C/lFJEB3frw4ImNx5fNlJYOpx+ijfQs9m39CevDq0=
+
 agent:
   enabled: true
   defaultsProviderTemplate: ""
@@ -608,6 +622,7 @@ agent:
   privileged: false
   runAsUser:
   runAsGroup:
+  hostNetworking: false
   resources:
     requests:
       cpu: "512m"
@@ -717,6 +732,23 @@ agent:
   connectTimeout: 100
   # Annotations to apply to the pod.
   annotations: {}
+
+  # Add additional containers to the agents.
+  # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
+  additionalContainers: []
+  #  - sideContainerName: dind
+  #    image: docker
+  #    tag: dind
+  #    command: dockerd-entrypoint.sh
+  #    args: ""
+  #    privileged: true
+  #    resources:
+  #      requests:
+  #        cpu: 500m
+  #        memory: 1Gi
+  #      limits:
+  #        cpu: 1
+  #        memory: 2Gi
 
   # Disable the default Jenkins Agent configuration.
   # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
