@@ -5,7 +5,6 @@ resource "kubernetes_namespace" "k8s-ns-development" {
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
-/*
 resource "kubernetes_namespace" "k8s-ns-test" {
   metadata {
     name = "test"
@@ -21,6 +20,7 @@ resource "kubernetes_namespace" "k8s-ns-production" {
 }
 
 
+/*
 resource "kubernetes_deployment" "deployment-dev-1" {
   metadata {
     name = "deployment-nginx"
@@ -89,25 +89,5 @@ resource "kubernetes_service" "service-web_frontend" {
     type = "LoadBalancer"
   }
 }
+
 */
-
-resource "kubernetes_service" "service-jenkins" {
-  metadata {
-    name = "service-jenkins"
-    namespace = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  }
-  
-  spec {
-    selector = {
-      app = "jenkins"
-    }
-    session_affinity = "ClientIP"
-    
-    port {
-      port        = 8080
-      target_port = 8080
-    }
-
-    type = "LoadBalancer"
-  }
-}

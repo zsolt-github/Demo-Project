@@ -46,7 +46,7 @@ controller:
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert controller.adminUser to your preferred admin user:
   adminUser: "admin"
-  # adminPassword: <defaults to random>
+  adminPassword: "adminpassword"
   admin:
     existingSecret: ""
     userKey: jenkins-admin-user
@@ -126,7 +126,11 @@ controller:
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
-  serviceType: ClusterIP
+  serviceType: LoadBalancer
+  
+  
+  
+  
   # Use Local to preserve the client source IP and avoids a second hop for LoadBalancer and Nodeport type services,
   # but risks potentially imbalanced traffic spreading.
   serviceExternalTrafficPolicy:
@@ -181,7 +185,7 @@ controller:
     enabled: false
     # For Kubernetes v1.5+, use 'policy/v1beta1'
     # For Kubernetes v1.21+, use 'policy/v1'
-    apiVersion: "policy/v1beta1"
+    apiVersion: "policy/v1"
     annotations: {}
     labels: {}
     # maxUnavailable: "0"
@@ -243,6 +247,7 @@ controller:
     - workflow-aggregator:590.v6a_d052e5a_a_b_5
     - git:4.11.5
     - configuration-as-code:1512.vb_79d418d5fc8
+    - blueocean:1.25.8
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
@@ -445,7 +450,7 @@ controller:
     #     servicePort: 8080
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    apiVersion: "extensions/v1beta1"
+    apiVersion: "extensions/v1"
     labels: {}
     annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -473,7 +478,7 @@ controller:
     paths: []
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    apiVersion: "extensions/v1beta1"
+    apiVersion: "extensions/v1"
     labels: {}
     annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -493,7 +498,7 @@ controller:
   # Docs: https://cloud.google.com/kubernetes-engine/docs/concepts/backendconfig
   backendconfig:
     enabled: false
-    apiVersion: "extensions/v1beta1"
+    apiVersion: "extensions/v1"
     name:
     labels: {}
     annotations: {}
@@ -799,7 +804,7 @@ additionalAgents: {}
 #    TTYEnabled: true
 
 persistence:
-  enabled: true
+  enabled: false
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
   ## If defined, PVC must be created manually before volume will be bound
@@ -932,9 +937,9 @@ backup:
   #    - NET_RAW
 checkDeprecation: true
 
-awsSecurityGroupPolicies:
-  enabled: false
-  policies:
-    - name: ""
-      securityGroupIds: []
-      podSelector: {}
+#awsSecurityGroupPolicies:
+#  enabled: false
+#  policies:
+#    - name: ""
+#      securityGroupIds: []
+#      podSelector: {}
