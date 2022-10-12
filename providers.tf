@@ -1,5 +1,6 @@
 terraform {
   required_providers {
+
     azurerm = {
       source = "hashicorp/azurerm"
       version = "3.20.0"
@@ -13,6 +14,11 @@ terraform {
     helm = {
       source = "hashicorp/helm"
       version = "2.7.0"
+    }
+
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.14.0"
     }
 
   }
@@ -38,4 +44,12 @@ provider "helm" {
   client_certificate     = base64decode(data.azurerm_kubernetes_cluster.data-aks.kube_config.0.client_certificate)
   client_key             = base64decode(data.azurerm_kubernetes_cluster.data-aks.kube_config.0.client_key)
   }
+}
+
+provider "kubectl" {
+  host                   = data.azurerm_kubernetes_cluster.data-aks.kube_config.0.host
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.data-aks.kube_config.0.cluster_ca_certificate)
+  client_certificate     = base64decode(data.azurerm_kubernetes_cluster.data-aks.kube_config.0.client_certificate)
+  client_key             = base64decode(data.azurerm_kubernetes_cluster.data-aks.kube_config.0.client_key)
+  load_config_file       = false
 }

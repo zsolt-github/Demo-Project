@@ -5,13 +5,6 @@ resource "kubernetes_namespace" "k8s-ns-development" {
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
-resource "kubernetes_namespace" "k8s-ns-test" {
-  metadata {
-    name = "test"
-  }
-  depends_on = [azurerm_kubernetes_cluster.aks]
-}
-
 resource "kubernetes_namespace" "k8s-ns-production" {
   metadata {
     name = "production"
@@ -19,8 +12,15 @@ resource "kubernetes_namespace" "k8s-ns-production" {
   depends_on = [azurerm_kubernetes_cluster.aks]
 }
 
-
 /*
+resource "kubernetes_namespace" "k8s-ns-test" {
+  metadata {
+    name = "test"
+  }
+  depends_on = [azurerm_kubernetes_cluster.aks]
+}
+
+
 resource "kubernetes_deployment" "deployment-dev-1" {
   metadata {
     name = "deployment-nginx"
@@ -48,16 +48,16 @@ resource "kubernetes_deployment" "deployment-dev-1" {
   
       spec {
         container {
-          image = "nginx:1.19.4"
           name  = "nginx"
+          image = "nginx:1.19.4"
 
           resources {
-            limits = {
-              cpu = "1"
-              memory = "512M"              
-            }
             requests = {
               cpu = "50m"
+              memory = "128M"              
+            }
+            limits = {
+              cpu = "100m"
               memory = "256M"              
             }
           }

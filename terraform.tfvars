@@ -33,5 +33,5 @@ acr_name = "zfcloudacr001"
 
 
 # Jenkins
-# jenkins_admin_user = "admin"
-# jenkins_admin_password = "admin"
+ jenkins_admin_user = "admin"
+ jenkins_admin_password = "adminpassword"
