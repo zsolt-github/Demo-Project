@@ -10,5 +10,20 @@ resource "helm_release" "helm-jenkins" {
     "${file("jenkins-values.yaml")}"
   ]
 
+  set_sensitive {
+    name  = "controller.adminPassword"
+    value = var.jenkins_admin_password
+  }
+
+  set {
+    name  = "controller.serviceType"
+    value = "LoadBalancer"
+  }
+
+  #set {
+  #  name  = "installPlugins"
+  #  value = "- blueocean:1.25.8"
+  #}
+
 }
 */
