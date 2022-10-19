@@ -12,7 +12,7 @@ az_subnet_address_prefix = "10.30.1.0/24"
 # AKS
 aks_cluster_name = "AKS-P2-TF"
 aks_version = "1.24"
-#1.24.3
+#1.24.6
 
 #    Pool name must start with a lowercase letter, have max length of 12, and only have characters a-z0-9
 aks_default_node_name = "system"
