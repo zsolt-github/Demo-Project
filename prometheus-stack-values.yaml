@@ -1,0 +1,15 @@
+﻿grafana:
+  service:
+    type: Loadbalancer
+
+
+prometheus:
+  service:
+    ## Service type
+    ##
+    type: Loadbalancer
+
+  servicePerReplica:
+    ## Service type
+    ##
+    type: ClusterIP

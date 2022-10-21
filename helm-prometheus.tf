@@ -35,4 +35,16 @@ resource "helm_release" "helm-prometheus" {
   # create_namespace = true
   # reset_values     = true
   # max_history      = 3
+
+  
+  # Test this when you get back from holiday!!!
+
+  #values = [
+    # save the file in UTF-8 format
+  #  "${file("prometheus-stack-values.yaml")}"
+  #]
+
 }
+
+
+
