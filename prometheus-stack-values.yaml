@@ -1,13 +1,13 @@
 ﻿grafana:
   service:
-    type: Loadbalancer
+    type: LoadBalancer
 
 
 prometheus:
   service:
     ## Service type
     ##
-    type: Loadbalancer
+    type: LoadBalancer
 
   servicePerReplica:
     ## Service type

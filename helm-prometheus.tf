@@ -1,3 +1,26 @@
+# https://github.com/prometheus-community/helm-charts/
+
+resource "helm_release" "helm-prometheus" {
+  name             = "prometheus"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "kube-prometheus-stack"
+  # namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
+  
+  version          = "41.5.1"
+  # create_namespace = true
+  # reset_values     = true
+  # max_history      = 3
+
+  
+  values = [
+    # save the file in UTF-8 format
+    "${file("prometheus-stack-values.yaml")}"
+  ]
+
+}
+
+
+
 /*
 # https://github.com/prometheus-community/helm-charts/
 
@@ -22,29 +45,3 @@ resource "helm_release" "helm-prometheus" {
 
 
 */
-
-# https://github.com/prometheus-community/helm-charts/
-
-resource "helm_release" "helm-prometheus" {
-  name             = "prometheus"
-  repository       = "https://prometheus-community.github.io/helm-charts"
-  chart            = "kube-prometheus-stack"
-  # namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  
-  version          = "41.5.1"
-  # create_namespace = true
-  # reset_values     = true
-  # max_history      = 3
-
-  
-  # Test this when you get back from holiday!!!
-
-  #values = [
-    # save the file in UTF-8 format
-  #  "${file("prometheus-stack-values.yaml")}"
-  #]
-
-}
-
-
-
