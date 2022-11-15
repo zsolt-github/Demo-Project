@@ -7,9 +7,8 @@ resource "helm_release" "helm-prometheus-mongodb-exporter" {
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "prometheus-mongodb-exporter"
   #namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  #depends_on       = [helm_release.helm-mongodb]
-
-
+  depends_on       = [helm_release.helm-mongodb]
+  
   values = [
     "${file("prometheus-mongodb-exporter-values.yaml")}"
   ]

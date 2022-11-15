@@ -1,3 +1,4 @@
+# https://artifacthub.io/packages/helm/jenkinsci/jenkins
 
 resource "helm_release" "helm-jenkins" {
   name       = "jenkins"
@@ -6,6 +7,7 @@ resource "helm_release" "helm-jenkins" {
   # namespace  = kubernetes_namespace.k8s-ns-development.metadata.0.name
   depends_on = [kubernetes_namespace.k8s-ns-development]
 
+/*
   values = [
     "${file("jenkins-values.yaml")}"
   ]
@@ -20,6 +22,7 @@ resource "helm_release" "helm-jenkins" {
     value = "LoadBalancer"
   }
 
+*/
   # https://stackoverflow.com/questions/67603287/terraform-helm-set-array-of-environment-variables-in-terraform
   
   #set {
