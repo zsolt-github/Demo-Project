@@ -1,10 +1,12 @@
 # https://github.com/prometheus-community/helm-charts/
 
 resource "helm_release" "helm-prometheus" {
-  name             = "prometheus2"
+  name             = "prometheus"
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "kube-prometheus-stack"
-  # namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
+  #namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
+  depends_on       = [kubernetes_namespace.k8s-ns-development]
+  #depends_on      = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
   
   version          = "41.5.1"
   # create_namespace = true

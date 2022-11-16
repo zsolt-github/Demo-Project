@@ -5,7 +5,8 @@ resource "helm_release" "helm-jenkins" {
   repository = "https://charts.jenkins.io"
   chart      = "jenkins"
   # namespace  = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  depends_on = [kubernetes_namespace.k8s-ns-development]
+  # depends_on = [kubernetes_namespace.k8s-ns-development]
+  depends_on = [helm_release.helm-prometheus]
 
 /*
   values = [

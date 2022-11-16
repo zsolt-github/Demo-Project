@@ -2,14 +2,16 @@ resource "kubernetes_namespace" "k8s-ns-development" {
   metadata {
     name = "development"
   }
-  depends_on = [azurerm_kubernetes_cluster.aks]
+  #depends_on = [azurerm_kubernetes_cluster.aks]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 resource "kubernetes_namespace" "k8s-ns-production" {
   metadata {
     name = "production"
   }
-  depends_on = [azurerm_kubernetes_cluster.aks]
+  #depends_on = [azurerm_kubernetes_cluster.aks]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 /*
@@ -17,7 +19,8 @@ resource "kubernetes_namespace" "k8s-ns-test" {
   metadata {
     name = "test"
   }
-  depends_on = [azurerm_kubernetes_cluster.aks]
+  #depends_on = [azurerm_kubernetes_cluster.aks]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 

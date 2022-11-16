@@ -73,7 +73,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 }
 
-/*
+
 resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   name                  = var.aks_worker_pool_1_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
@@ -92,7 +92,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   }
 }
 
-*/
 
 resource "local_file" "aks_kubeconfig" {
   depends_on   = [azurerm_kubernetes_cluster.aks]
