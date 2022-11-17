@@ -5,5 +5,5 @@ resource "helm_release" "helm-mongodb" {
   repository       = "https://charts.bitnami.com/bitnami"
   chart            = "mongodb"
   #namespace        = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  depends_on       = [kubernetes_namespace.k8s-ns-development]
+  depends_on       = [helm_release.helm-jenkins]
 }

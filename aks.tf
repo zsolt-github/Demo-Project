@@ -93,13 +93,15 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
 }
 
 
+/*
+
 resource "local_file" "aks_kubeconfig" {
   depends_on   = [azurerm_kubernetes_cluster.aks]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.aks.kube_config_raw
 }
 
-/*
+
 
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name

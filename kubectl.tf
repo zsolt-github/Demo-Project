@@ -1,5 +1,5 @@
 data "kubectl_file_documents" "k8s-ns-test" {
-  content = file("./Kubernetes/namespace-test.yaml")
+  content = file("./Kubernetes-files/namespace-test.yaml")
 }
 
 resource "kubectl_manifest" "k8s-ns-test" {

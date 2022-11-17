@@ -10,6 +10,6 @@ resource "helm_release" "helm-prometheus-mongodb-exporter" {
   depends_on       = [helm_release.helm-mongodb]
   
   values = [
-    "${file("prometheus-mongodb-exporter-values.yaml")}"
+    "${file("prometheus-mongodb-exporter-values-original.yaml")}"
   ]
 }

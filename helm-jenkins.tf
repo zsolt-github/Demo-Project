@@ -8,10 +8,12 @@ resource "helm_release" "helm-jenkins" {
   # depends_on = [kubernetes_namespace.k8s-ns-development]
   depends_on = [helm_release.helm-prometheus]
 
-/*
+
   values = [
-    "${file("jenkins-values.yaml")}"
+    "${file("./Jenkins-files/jenkins-values.yaml")}"
   ]
+
+/*
 
   set_sensitive {
     name  = "controller.adminPassword"
