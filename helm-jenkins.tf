@@ -1,4 +1,5 @@
 # https://artifacthub.io/packages/helm/jenkinsci/jenkins
+# https://github.com/jenkinsci/plugins
 
 resource "helm_release" "helm-jenkins" {
   name       = "jenkins"

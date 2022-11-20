@@ -82,7 +82,7 @@ service:
   labels: {}
   annotations: {}
   port: 9216
-  type: ClusterIP
+  type: LoadBalancer
   portName: metrics
 
 serviceAccount:
@@ -96,8 +96,7 @@ serviceMonitor:
   interval: 30s
   scrapeTimeout: 10s
   namespace:
-  additionalLabels:
-    release: prometheus
+  additionalLabels: {}
   targetLabels: []
   metricRelabelings: []
   scheme: ""
