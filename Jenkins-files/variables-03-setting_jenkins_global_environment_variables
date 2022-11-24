@@ -1,0 +1,24 @@
+pipeline {
+	agent any
+
+	environment {
+		USER_NAME = "Joe"
+		USER_ID = 42	// this is still just a string variable and not an integer
+	}
+	stages {
+		stage("List env vars") {
+			steps {
+				sh "printenv | sort"
+			}
+		}
+
+		stage("Using env vars") {
+			steps {
+				echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
+				sh 'echo BUILD_NUMBER = $BUILD_NUMBER'	// shell variable 											   access
+				echo "Current user is ${env.USER_NAME}"
+				echo "Current user ID is ${env.USER_ID} (type: ${env.USER_ID.class})"
+			}
+		}
+	}
+}

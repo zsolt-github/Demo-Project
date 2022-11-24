@@ -1,0 +1,45 @@
+pipeline {
+	agent any
+
+	environment {
+		USER_NAME = "Joe"
+		USER_ID = 42
+	}
+	stages {
+		stage("List env vars") {
+			steps {
+				sh "printenv | sort"
+			}
+		}
+
+		stage("Using env vars") {
+			environment {
+				USER_PATH = "/home/joe"
+				USER_ID = 32	// this will overwrite the previous 42 value
+			}
+			steps {
+				echo "BUILD_NUMBER = ${env.BUILD_NUMBER}"
+				sh 'echo BUILD_NUMBER = $BUILD_NUMBER'	// shell variable 											   access
+				echo "Current user is ${env.USER_NAME}"
+				echo "Current user ID is ${env.USER_ID} (type: ${env.USER_ID.class})"
+				echo "Current user path is ${env.USER_PATH}"
+
+				script {
+					env.USER_GROUP = "users"
+					env.USER_NAME = "Adam"	// this won't work
+				}
+
+				echo "Current user is ${env.USER_NAME}"
+
+				sh 'echo Current user group is $USER_GROUP'
+
+				withEnv(["USER_PWD=secret", "USER_IS_ADMIN=false", "USER_NAME=Bob"])  // this will overwrite the user name
+				{	
+					echo "Current user password is ${env.USER_PWD}"
+					sh 'echo Current user is admin? $USER_IS_ADMIN'
+					echo "Current user is ${env.USER_NAME}"
+				}
+			}
+		}
+	}
+}
