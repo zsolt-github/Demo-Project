@@ -16,9 +16,24 @@ resource "helm_release" "helm-jenkins" {
 
 /*
 
+  set {
+    name  = "controller.numExecutors"
+    value = 5
+  }
+
   set_sensitive {
     name  = "controller.adminPassword"
     value = var.jenkins_admin_password
+  }
+
+  set {
+    name  = "controller.additionalPlugins"
+    value = {"cloudbees-disk-usage-simple" = "178.v1a_4d2f6359a_8", "blueocean" = "1.25.8", "prometheus" = "2.0.11"}
+  }
+
+  set {
+    name  = "controller.cloudName"
+    value = "Zsolt-Kubernetes"
   }
 
   set {
@@ -26,12 +41,25 @@ resource "helm_release" "helm-jenkins" {
     value = "LoadBalancer"
   }
 
+  set {
+    name  = "agent.podName"
+    value = "jenkins-agent"
+  }
+
+  set {
+    name  = "serviceAccount.name"
+    value = "jenkins-serviceaccount"
+  }
+
+
+
+
 */
   # https://stackoverflow.com/questions/67603287/terraform-helm-set-array-of-environment-variables-in-terraform
   
   #set {
-  #  name  = "installPlugins"
-  #  value = {"- kubernetes" = "3706.vdfb_d599579f3", "- workflow-aggregator" = "590.v6a_d052e5a_a_b_5", "- git" = "4.11.5", "- configuration-as-code" = "1512.vb_79d418d5fc8", "- blueocean" = "1.25.8"}
+  #  name  = "controller.additionalPlugins"
+  #  value = {"cloudbees-disk-usage-simple" = "178.v1a_4d2f6359a_8", "blueocean" = "1.25.8", "prometheus" = "2.0.11"}
   #}
 
   # or
