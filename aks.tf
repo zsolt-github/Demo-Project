@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "aks-rg" {
 
   tags = {
     "ResourceType" = "Resrouce Group"
-    "Evironment"   = "test"
+    "Evironment"   = "Demo Project"
   }
 }
 
@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "aks-vnet" {
 
   tags = {
     "ResourceType" = "Virtual Network"
-    "Environment"  = "test"
+    "Environment"  = "Demo Project"
   }  
 }
 
@@ -37,11 +37,11 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = var.aks_cluster_name
 
   default_node_pool {
-    name                = var.aks_default_node_name
-    node_count          = var.aks_default_node_count
-    vm_size             = var.aks_default_node_vm_size
-    type                = var.aks_default_node_node_type
-#    zones               = [1, 2, 3]
+    name                = var.aks_system_node_name
+    node_count          = var.aks_system_node_count
+    vm_size             = var.aks_system_node_vm_size
+    type                = var.aks_system_node_node_type
+    node_labels         = var.aks_system_node_labels
     vnet_subnet_id      = azurerm_subnet.aks-subnet.id
   
     enable_auto_scaling = false
@@ -69,26 +69,43 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags = {
       "ResourceType" = "Kubernetes"
-      "Environment"  = "test"
+      "Environment"  = "Demo Project"
   }
 }
 
-
-resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
-  name                  = var.aks_worker_pool_1_name
+resource "azurerm_kubernetes_cluster_node_pool" "aks-monitoring-node" {
+  name                  = var.aks_monitoring_node_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
-  vm_size               = var.aks_worker_pool_1_vm_size
-#  type                  = var.aks_worker_pool_1_node_type
+  vm_size               = var.aks_monitoring_node_vm_size
+#  type                  = var.aks_monitoring_node_node_type
+  node_labels           = var.aks_monitoring_node_labels
   vnet_subnet_id        = azurerm_subnet.aks-subnet.id
   
+  node_count            = var.aks_monitoring_node_count
+
+  tags = {
+      "ResourceType" = "Kubernetes"
+      "Environment"  = "Demo Project"
+  }
+}
+
+resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
+  name                  = var.aks_worker_node_1_name
+  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id
+  vm_size               = var.aks_worker_node_1_vm_size
+#  type                  = var.aks_worker_node_1_node_type
+  node_labels           = var.aks_worker_node_1_labels
+  vnet_subnet_id        = azurerm_subnet.aks-subnet.id
+  depends_on            = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+
   enable_auto_scaling   = true
-  max_count             = var.aks_worker_pool_1_auto_scaling_max_count
-  min_count             = var.aks_worker_pool_1_auto_scaling_min_count
-  node_count            = var.aks_worker_pool_1_count
+  max_count             = var.aks_worker_node_1_auto_scaling_max_count
+  min_count             = var.aks_worker_node_1_auto_scaling_min_count
+  node_count            = var.aks_worker_node_1_count
   
   tags = {
       "ResourceType" = "Kubernetes"
-      "Environment"  = "test"
+      "Environment"  = "Demo Project"
   }
 }
 

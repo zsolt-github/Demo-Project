@@ -1,4 +1,4 @@
-# Variables for the Azure Resource Group
+# --- Variables for the Azure Resource Group -------------------------
 
 variable "az_resource_group_name" {
     type = string
@@ -11,7 +11,8 @@ variable "az_location" {
 }
 
 
-# Variables for the Azure Virtual Network
+
+# --- Variables for the Azure Virtual Network -------------------------
 
 variable "az_virtual_network_name" {
     type = string
@@ -24,7 +25,8 @@ variable "az_virtual_network_address_space" {
 }
 
 
-# Variables for Azure the Subnet
+
+# --- Variables for Azure the Subnet -------------------------
 
 variable "az_subnet_name" {
     type = string
@@ -37,7 +39,8 @@ variable "az_subnet_address_prefix" {
 }
 
 
-# Variables for the Azure Kubernetes Cluster
+
+# --- Variables for the Azure Kubernetes Cluster -------------------------
 
 variable "aks_cluster_name" {
     type = string
@@ -49,76 +52,106 @@ variable "aks_version" {
     description = "Kubernetes version."
 }
 
-/*
-variable "aks_appId" {
+
+
+# --- Variables for the Azure Kubernetes System node -------------------------
+
+variable "aks_system_node_name" {
     type = string
-    description = "Kubernetes version"
+    description = "Name of Kubernetes system node."
 }
 
-variable "aks_password" {
-    type = string
-    description = "Kubernetes version"
-}
-*/
-
-# Variables for the Azure Kubernetes Default node
-
-variable "aks_default_node_name" {
-    type = string
-    description = "Name of Kubernetes default node."
-}
-
-variable "aks_default_node_count" {
+variable "aks_system_node_count" {
     type = number
-    description = "Number of Kubernetes default node."
+    description = "Number of Kubernetes system node."
 }
 
-variable "aks_default_node_vm_size" {
+variable "aks_system_node_vm_size" {
     type = string
-    description = "VM type of Kubernetes default node."
+    description = "VM type of Kubernetes system node."
 }
 
-variable "aks_default_node_node_type" {
+variable "aks_system_node_node_type" {
     type = string
-    description = "Kubernetes Node Type of the default node."
+    description = "Kubernetes Node Type of the system node."
+}
+
+variable "aks_system_node_labels" {
+    type = map(string)
+    description = "Kubernetes Node Labels for the system node."
 }
 
 
-# Variables for the Azure Kubernetes Worker node 1
 
-variable "aks_worker_pool_1_name" {
+# --- Variables for the Azure Kubernetes Monitoring node -------------------------
+
+variable "aks_monitoring_node_name" {
+    type = string
+    description = "Name of Kubernetes monitoring node."
+}
+
+variable "aks_monitoring_node_vm_size" {
+    type = string
+    description = "VM type of Kubernetes monitoring node."
+}
+
+variable "aks_monitoring_node_node_type" {
+    type = string
+    description = "Kubernetes Node Type of the monitoring node ."
+}
+
+variable "aks_monitoring_node_count" {
+    type = number
+    description = "Number of Kubernetes nodes in monitoring node."
+}
+
+variable "aks_monitoring_node_labels" {
+    type = map(string)
+    description = "Kubernetes Node Labels for the mointoring node."
+}
+
+
+
+# --- Variables for the Azure Kubernetes Worker node 1 -------------------------
+
+variable "aks_worker_node_1_name" {
     type = string
     description = "Name of Kubernetes worker node 1."
 }
 
-variable "aks_worker_pool_1_vm_size" {
+variable "aks_worker_node_1_vm_size" {
     type = string
     description = "VM type of Kubernetes worker node 1."
 }
 
-variable "aks_worker_pool_1_node_type" {
+variable "aks_worker_node_1_node_type" {
     type = string
     description = "Kubernetes Node Type of the worker node 1."
 }
 
-variable "aks_worker_pool_1_auto_scaling_max_count" {
+variable "aks_worker_node_1_auto_scaling_max_count" {
     type = number
     description = "The maximum number of Kubernetes nodes in worker node 1."
 }
 
-variable "aks_worker_pool_1_auto_scaling_min_count" {
+variable "aks_worker_node_1_auto_scaling_min_count" {
     type = number
     description = "The minimum number of Kubernetes nodes in worker node 1."
 }
 
-variable "aks_worker_pool_1_count" {
+variable "aks_worker_node_1_count" {
     type = number
     description = "Number of Kubernetes nodes in worker node 1."
 }
 
+variable "aks_worker_node_1_labels" {
+    type = map(string)
+    description = "Kubernetes Node Labels for the mointoring node."
+}
 
 
-# Variables for the Azure Container Registry
+
+# --- Variables for the Azure Container Registry -------------------------
 
 variable "acr_name" {
     type = string
@@ -126,7 +159,8 @@ variable "acr_name" {
 }
 
 
-# Variables for Jenkins
+
+# --- Variables for Jenkins -------------------------
 
 variable "jenkins_admin_user" {
   type        = string

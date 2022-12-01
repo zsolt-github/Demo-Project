@@ -1,0 +1,221 @@
+﻿## Configuration for alertmanager
+## ref: https://prometheus.io/docs/alerting/alertmanager/
+##
+alertmanager:
+ 
+  alertmanagerSpec:
+    
+    ## Define which Nodes the Pods are scheduled on.
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    ##
+    nodeSelector: {}
+      # node-name: monitoring
+
+    ## Assign custom affinity rules to the alertmanager instance
+    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+    ##
+    affinity:
+     nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        - key: node-name
+    #          operator: In
+    #          values:
+    #          - monitoring
+
+        preferredDuringSchedulingIgnoredDuringExecution:
+        #- weight: 1
+          preference:
+          - matchExpressions:
+            - key: node-name
+              operator: In
+              values:
+              - monitoring
+  
+
+    ## If specified, the pod's tolerations.
+    ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+    ##
+    tolerations: []
+    # - key: "key"
+    #   operator: "Equal"
+    #   value: "value"
+    #   effect: "NoSchedule"
+
+    ## If specified, the pod's topology spread constraints.
+    ## ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
+    ##
+    topologySpreadConstraints: []
+    # - maxSkew: 1
+    #   topologyKey: topology.kubernetes.io/zone
+    #   whenUnsatisfiable: DoNotSchedule
+    #   labelSelector:
+    #     matchLabels:
+    #       app: alertmanager
+
+
+
+
+## Manages Prometheus and Alertmanager components
+##
+prometheusOperator:
+
+  ## Define which Nodes the Pods are scheduled on.
+  ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector: {}
+  # node-name: monitoring
+
+  ## Tolerations for use with node taints
+  ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
+  # - key: "key"
+  #   operator: "Equal"
+  #   value: "value"
+  #   effect: "NoSchedule"
+
+  ## Assign custom affinity rules to the prometheus operator
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  affinity:
+    nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        - key: node-name
+    #          operator: In
+    #          values:
+    #          - monitoring
+
+      preferredDuringSchedulingIgnoredDuringExecution:
+      #- weight: 1
+          preference:
+          - matchExpressions:
+            - key: node-name
+              operator: In
+              values:
+              - monitoring
+  
+
+
+
+## Deploy a Prometheus instance
+##
+prometheus:
+
+  prometheusSpec:
+
+    ## How long to retain metrics
+    ##
+    retention: 10d
+
+    ## Maximum size of metrics
+    ##
+    retentionSize: ""
+
+    ## Define which Nodes the Pods are scheduled on.
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    ##
+    nodeSelector: {}
+    # node-name: monitoring
+
+    ## Assign custom affinity rules to the prometheus instance
+    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+    ##
+    affinity:
+      nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        - key: node-name
+    #          operator: In
+    #          values:
+    #          - monitoring
+
+        preferredDuringSchedulingIgnoredDuringExecution:
+        #- weight: 1
+            preference:
+            - matchExpressions:
+              - key: node-name
+                operator: In
+                values:
+                - monitoring
+
+
+
+
+
+
+
+
+
+## Configuration for thanosRuler
+## ref: https://thanos.io/tip/components/rule.md/
+##
+
+  ## Configuration for ThanosRuler service
+  ##
+
+
+  ## Settings affecting thanosRulerpec
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#thanosrulerspec
+  ##
+  thanosRulerSpec:
+
+    ## Time duration ThanosRuler shall retain data for. Default is '24h', and must match the regular expression
+    ## [0-9]+(ms|s|m|h) (milliseconds seconds minutes hours).
+    ##
+    retention: 24h
+
+    ## Define which Nodes the Pods are scheduled on.
+    ## ref: https://kubernetes.io/docs/user-guide/node-selection/
+    ##
+    nodeSelector: {}
+    # node-name: monitoring
+
+    ## Pod anti-affinity can prevent the scheduler from placing Prometheus replicas on the same node.
+    ## The default value "soft" means that the scheduler should *prefer* to not schedule two replica pods onto the same node but no guarantee is provided.
+    ## The value "hard" means that the scheduler is *required* to not schedule two replica pods onto the same node.
+    ## The value "" will disable pod anti-affinity so that no anti-affinity rules will be configured.
+    ##
+    podAntiAffinity: ""
+
+    ## If anti-affinity is enabled sets the topologyKey to use for anti-affinity.
+    ## This can be changed to, for example, failure-domain.beta.kubernetes.io/zone
+    ##
+    podAntiAffinityTopologyKey: kubernetes.io/hostname
+
+    ## Assign custom affinity rules to the thanosRuler instance
+    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+    ##
+    affinity:
+      nodeAffinity:
+    #   requiredDuringSchedulingIgnoredDuringExecution:
+    #      nodeSelectorTerms:
+    #      - matchExpressions:
+    #        - key: node-name
+    #          operator: In
+    #          values:
+    #          - monitoring
+
+        preferredDuringSchedulingIgnoredDuringExecution:
+        #- weight: 1
+            preference:
+            - matchExpressions:
+              - key: node-name
+                operator: In
+                values:
+                - monitoring
+
+
+
+    ## If specified, the pod's tolerations.
+    ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+    ##
+    tolerations: []
+    # - key: "key"
+    #   operator: "Equal"
+    #   value: "value"
+    #   effect: "NoSchedule"

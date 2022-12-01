@@ -5,9 +5,9 @@ resource "helm_release" "helm-jenkins" {
   name       = "jenkins"
   repository = "https://charts.jenkins.io"
   chart      = "jenkins"
-  # namespace  = kubernetes_namespace.k8s-ns-development.metadata.0.name
-  # depends_on = [helm_release.helm-prometheus]
-  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  namespace  = kubernetes_namespace.k8s-ns-jenkins.metadata.0.name
+  depends_on = [helm_release.helm-prometheus]
+  #depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 
 
   values = [
