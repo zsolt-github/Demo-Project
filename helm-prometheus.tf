@@ -5,13 +5,15 @@ resource "helm_release" "helm-prometheus" {
   repository       = "https://prometheus-community.github.io/helm-charts"
   chart            = "kube-prometheus-stack"
   namespace        = kubernetes_namespace.k8s-ns-monitoring.metadata.0.name
-  depends_on      = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  depends_on       = [kubernetes_namespace.k8s-ns-monitoring]
+  #depends_on      = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+  #depends_on      = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
   
   version          = "42.1.0"
   # version          = "41.5.1"
   
   
-  values = [    
+  values = [
     "${file("./Helm-files/prometheus-stack-values.yaml")}"
   ]
 

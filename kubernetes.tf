@@ -5,7 +5,8 @@ resource "kubernetes_namespace" "k8s-ns-monitoring" {
     name = "monitoring"
   }
   #depends_on = [azurerm_kubernetes_cluster.aks]
-  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+  #depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 resource "kubernetes_namespace" "k8s-ns-jenkins" {
@@ -13,7 +14,8 @@ resource "kubernetes_namespace" "k8s-ns-jenkins" {
     name = "jenkins"
   }
   #depends_on = [azurerm_kubernetes_cluster.aks]
-  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+  #depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 resource "kubernetes_namespace" "k8s-ns-development" {
@@ -21,7 +23,8 @@ resource "kubernetes_namespace" "k8s-ns-development" {
     name = "development"
   }
   #depends_on = [azurerm_kubernetes_cluster.aks]
-  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+  #depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
 
 resource "kubernetes_namespace" "k8s-ns-production" {
@@ -29,5 +32,6 @@ resource "kubernetes_namespace" "k8s-ns-production" {
     name = "production"
   }
   #depends_on = [azurerm_kubernetes_cluster.aks]
-  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
+  depends_on = [azurerm_kubernetes_cluster_node_pool.aks-monitoring-node]
+  #depends_on = [azurerm_kubernetes_cluster_node_pool.aks-worker-pool-1]
 }
