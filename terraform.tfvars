@@ -24,7 +24,8 @@ aks_system_node_labels = { "node-name" : "system", "custom-label-1" : "sys" }
 
 
 aks_monitoring_node_name = "monitoring"
-aks_monitoring_node_vm_size = "Standard_B2s" # 2 vCPUs + 4GB RAM + 4 Data disks + 1280 IOPS - $30.37/month
+aks_monitoring_node_vm_size = "Standard_B2ms" # 1 vCPUs + 2GB RAM + 2 Data disks + 640 IOPS - $17.23/month
+#aks_monitoring_node_vm_size = "Standard_B2s" # 2 vCPUs + 4GB RAM + 4 Data disks + 1280 IOPS - $30.37/month
 aks_monitoring_node_node_type = "VirtualMachineScaleSets"
 aks_monitoring_node_count = 1
 aks_monitoring_node_labels = { "node-name" : "monitoring", "custom-label-1" : "mon"}

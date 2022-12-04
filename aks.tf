@@ -89,8 +89,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks-monitoring-node" {
   }
 }
 
-
-/*
 resource "azurerm_kubernetes_cluster_node_pool" "aks-worker-pool-1" {
   name                  = var.aks_worker_node_1_name
   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks.id

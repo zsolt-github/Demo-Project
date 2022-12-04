@@ -731,6 +731,33 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  affinity:
+    nodeAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #     - matchExpressions:
+  #       - key: node-name
+  #         operator: In
+  #         values:
+  #         - monitoring
+    
+
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: node-name
+            operator: In
+            values:
+            - monitoring
+
+
+
+
+
+
+
+
   ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
   ##
   forceDeployDatasources: false
@@ -1507,6 +1534,33 @@ kube-state-metrics:
   rbac:
     create: true
   releaseLabel: true
+  
+  affinity:
+    nodeAffinity:
+  #   requiredDuringSchedulingIgnoredDuringExecution:
+  #     nodeSelectorTerms:
+  #     - matchExpressions:
+  #       - key: node-name
+  #         operator: In
+  #         values:
+  #         - monitoring
+    
+
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: node-name
+            operator: In
+            values:
+            - monitoring
+
+
+
+  
+  
+  
+  
   prometheus:
     monitor:
       enabled: true
@@ -1869,11 +1923,10 @@ prometheusOperator:
     #   requiredDuringSchedulingIgnoredDuringExecution:
     #     nodeSelectorTerms:
     #     - matchExpressions:
-    #       - key: kubernetes.io/e2e-az-name
+    #       - key: node-name
     #         operator: In
     #         values:
-    #         - e2e-az1
-    #         - e2e-az2
+    #         - monitoring
   
   
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -2671,11 +2724,10 @@ prometheus:
     #   requiredDuringSchedulingIgnoredDuringExecution:
     #     nodeSelectorTerms:
     #     - matchExpressions:
-    #       - key: kubernetes.io/e2e-az-name
+    #       - key: node-name
     #         operator: In
     #         values:
-    #         - e2e-az1
-    #         - e2e-az2
+    #         - monitoring
 
 
         preferredDuringSchedulingIgnoredDuringExecution:
@@ -3428,11 +3480,10 @@ thanosRuler:
     #   requiredDuringSchedulingIgnoredDuringExecution:
     #     nodeSelectorTerms:
     #     - matchExpressions:
-    #       - key: kubernetes.io/e2e-az-name
+    #       - key: node-name
     #         operator: In
     #         values:
-    #         - e2e-az1
-    #         - e2e-az2
+    #         - monitoring
 
 
         preferredDuringSchedulingIgnoredDuringExecution:
